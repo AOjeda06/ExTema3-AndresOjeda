@@ -1,24 +1,46 @@
 package fecha;
 
 public class Fecha {
-	private int d; //día
-	private int m; //mes
-	private int a; //año
+	/**
+	 * Atributo para almacenar el dia
+	 */
+	private int d;
 
-	
+	/**
+	 * Atributo para almacenar el mes
+	 */
+	private int m;
+
+	/**
+	 * Atributo para almacenar el aÃ±o
+	 */
+	private int a;
+
+	/**
+	 * Constructor 1 de la clase fecha
+	 */
 	public Fecha() {
 
 	}
 
-	
+	/**
+	 * Constructor 2 de la clase fecha
+	 * 
+	 * @param dia  valor del dia
+	 * @param mes  valor del mes
+	 * @param anio valor del anho
+	 */
 	public Fecha(int dia, int mes, int anio) {
 		this.d = dia;
 		this.m = mes;
 		this.a = anio;
 	}
 
-	
-	
+	/**
+	 * Metodo que comprueba si una fecha es vÃ¡lida
+	 * 
+	 * @return true/false si es o no es vÃ¡lida
+	 */
 	public boolean fechaCorrecta() {
 		boolean diaCorrecto, mesCorrecto, anioCorrecto;
 		anioCorrecto = a > 0;
@@ -43,13 +65,20 @@ public class Fecha {
 		return diaCorrecto && mesCorrecto && anioCorrecto;
 	}
 
-	// Método esBisiesto. Solo lo usa fechaCorrecta, por eso es privado
+	/**
+	 * Metodo para comprobar si un anho es bisiesto
+	 * 
+	 * @return true/false si es o no es bisiesto
+	 */
 	private boolean esBisiesto() {
 		boolean esBisiesto = (a % 4 == 0 && a % 100 != 0 || a % 400 == 0);
 		return esBisiesto;
 	}
 
-	// Método diaSiguiente
+	/**
+	 * MÃ©todo para incrementar en 1 el dia, y consecuentemente actualizar el resto
+	 * de valores (mes y anho) si es necesario
+	 */
 	public void diaSiguiente() {
 		d++;
 		if (!fechaCorrecta()) {
@@ -62,7 +91,11 @@ public class Fecha {
 		}
 	}
 
-	// Método toString
+	/**
+	 * Override el metodo toString de java
+	 * 
+	 * @return Un String con la informacion de la fecha
+	 */
 	public String toString() {
 		if (d < 10 && m < 10) {
 			return "0" + d + "-0" + m + "-" + a;
