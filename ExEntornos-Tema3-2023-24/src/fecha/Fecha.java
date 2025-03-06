@@ -1,78 +1,105 @@
 package fecha;
 
 public class Fecha {
-	private int d; //día
-	private int m; //mes
-	private int a; //año
+	public static final int DIEZ = 10;
+	private int d;
+	private int mes;
+	private int a;
 
-	
+	/**
+	 * Constructor 1 de la clase fecha
+	 */
 	public Fecha() {
 
 	}
 
-	
+	/**
+	 * Constructor 2 de la clase fecha
+	 * 
+	 * @param dia	Valor del atributo dia
+	 * @param mes 	Valor del atributo mes
+	 * @param anho	Valor del atributo anho
+	 */
 	public Fecha(int dia, int mes, int anio) {
 		this.d = dia;
-		this.m = mes;
+		this.mes = mes;
 		this.a = anio;
 	}
 
-	
-	
+	/**
+	 * Metodo que comprueba si una fecha es valida
+	 * 
+	 * @return	true o false segun sea o no valida
+	 */
 	public boolean fechaCorrecta() {
-		boolean diaCorrecto, mesCorrecto, anioCorrecto;
+		boolean diaCorrecto;
+		boolean mesCorrecto;
+		boolean anioCorrecto;
+
 		anioCorrecto = a > 0;
-		mesCorrecto = m >= 1 && m <= 12;
-		switch (m) {
+		mesCorrecto = mes >= 1 && mes <= 12;
+		boolean diaMayor1 = d >= 1;
+		switch (mes) {
 		case 2:
 			if (esBisiesto()) {
-				diaCorrecto = d >= 1 && d <= 29;
+				diaCorrecto = diaMayor1 && d <= 29;
 			} else {
-				diaCorrecto = d >= 1 && d <= 28;
+				diaCorrecto = diaMayor1 && d <= 28;
 			}
 			break;
 		case 4:
 		case 6:
 		case 9:
 		case 11:
-			diaCorrecto = d >= 1 && d <= 30;
+			diaCorrecto = diaMayor1 && d <= 30;
 			break;
 		default:
-			diaCorrecto = d >= 1 && d <= 31;
+			diaCorrecto = diaMayor1 && d <= 31;
 		}
 		return diaCorrecto && mesCorrecto && anioCorrecto;
 	}
 
-	// Método esBisiesto. Solo lo usa fechaCorrecta, por eso es privado
+	/**
+	 * Metodo que comprueba si un anho es bisisesto
+	 * 
+	 * @return true/false si es o no bisiesto
+	 */
 	private boolean esBisiesto() {
-		boolean esBisiesto = (a % 4 == 0 && a % 100 != 0 || a % 400 == 0);
-		return esBisiesto;
+		return a % 4 == 0 && a % 100 != 0 || a % 400 == 0;
 	}
 
-	// Método diaSiguiente
-	public void diaSiguiente() {
+	/**
+	 *  Metodo que suma 1 dia a la fecha y actualiza el resto de atributos si es necesario
+	 */
+	public void nextDay() {
 		d++;
 		if (!fechaCorrecta()) {
 			d = 1;
-			m++;
+			mes++;
 			if (!fechaCorrecta()) {
-				m = 1;
+				mes = 1;
 				a++;
 			}
 		}
 	}
 
-	// Método toString
+	/**
+	 * Metodo que hace override al metodo original toString
+	 * 
+	 * @return nos devuelve un String con la info del objeto
+	 */
 	public String toString() {
-		if (d < 10 && m < 10) {
-			return "0" + d + "-0" + m + "-" + a;
-		} else if (d < 10 && m >= 10) {
-			return "0" + d + "-" + m + "-" + a;
-		} else if (d >= 10 && m < 10) {
-			return d + "-0" + m + "-" + a;
+		String resultado;
+		if (d < DIEZ && mes < DIEZ) {
+			resultado = "0" + d + "-0" + mes + "-" + a;
+		} else if (d < DIEZ && mes >= DIEZ) {
+			resultado = "0" + d + "-" + mes + "-" + a;
+		} else if (d >= DIEZ && mes < DIEZ) {
+			resultado = d + "-0" + mes + "-" + a;
 		} else {
-			return d + "-" + m + "-" + a;
+			resultado = d + "-" + mes + "-" + a;
 		}
+		return resultado;
 	}
 
 }
